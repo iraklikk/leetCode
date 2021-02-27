@@ -834,8 +834,6 @@ let average = function (salary) {
 }
 
 
-//unfinished
-
 let numRookCaptures = function (board) {
    let rookH = 0;
    let rookV = 0;
@@ -871,7 +869,6 @@ let numRookCaptures = function (board) {
       }
    }
 
-   console.log(board[rookH][rookV])
 
    for (let i = rookH; i >= 0; i--) {
       if (board[i][rookV] == 'B') {
@@ -917,7 +914,6 @@ let board2 = [
    [".", ".", ".", "p", ".", ".", ".", "."],
    [".", ".", ".", ".", ".", ".", ".", "."]]
 
-console.log(numRookCaptures(board2));
 
 
 let reverseString = function (s) {
@@ -964,6 +960,128 @@ let sortArrayByParity = function (A) {
 };
 
 
-let 
+let reformatNumber = function (number) {
+   number = number.replace(/ /g, '');
+   number = number.replace(/-/g, '');
+   let formatedNumber = ''
+   let count = 1;
+   for (let i = 0; i < number.length; i++) {
+      formatedNumber += number[i]
+      if (count % 3 == 0) {
+         formatedNumber += '-'
+      }
+      count++
+   }
+
+   if (formatedNumber[formatedNumber.length - 2] == '-') {
+      formatedNumber = formatedNumber.split('')
+      let temp = formatedNumber[formatedNumber.length - 2];
+      formatedNumber[formatedNumber.length - 2] = formatedNumber[formatedNumber.length - 3]
+      formatedNumber[formatedNumber.length - 3] = temp;
+      formatedNumber = formatedNumber.join('')
+   }
+
+   if (formatedNumber[formatedNumber.length - 1] == '-') {
+      formatedNumber = formatedNumber.substring(0, formatedNumber.length - 1)
+   }
+
+   return formatedNumber;
+};
+
+// time limit exceeded
+let palindromePairs = function (words) {
+   let pPairs = [];
+   let word = '';
+   for (let i = 0; i < words.length; i++) {
+      for (let j = 0; j < words.length; j++) {
+         if (i == j) {
+            continue;
+         }
+         word = words[i] + words[j];
+         let first = word.substring(0, (word.length - (word.length % 2)) / 2);
+         let second = word.substring((word.length + (word.length % 2)) / 2);
+         if (first == second.split('').reverse().join('')) {
+            pPairs.push([i, j]);
+         }
+
+      }
+   }
+   return pPairs;
+}
 
 
+let isPalindrome = function (word) {
+   let first = word.substring(0, (word.length - (word.length % 2)) / 2);
+   let second = word.substring((word.length + (word.length % 2)) / 2);
+   // if (word.length % 2 == 0) {
+   //    first = word.substring(0, word.length / 2);
+   //    second = word.substring(word.length / 2);
+   // } else {
+   //    first = word.substring(0, (word.length - 1) / 2);
+   //    second = word.substring((word.length + 1) / 2);
+   // }
+
+   return second;
+   // return first == second.split('').reverse().join('')
+}
+
+let singleNumbers = function (nums) {
+   const sum = nums.reduce(function (obj, item) {
+      if (!obj[item]) {
+         obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+   }, {})
+
+   for (let item in sum) {
+      if (sum[item] == 1) {
+         return parseInt(item)
+      }
+   }
+};
+
+var singleNumber = function (nums) {
+   let uniques = [];
+   nums = nums.sort((a, b) => a - b);
+   for (let i = 0; i < nums.length; i++) {
+      if (nums[i] != nums[i + 1] && nums[i] != nums[i - 1]) {
+         uniques.push(nums[i])
+      }
+   }
+   return uniques;
+};
+
+var isPowerOfFour = function (n) {
+
+   if (n == 1) {
+      return true;
+   }
+
+   while (n != 0) {
+      if (n == 4) {
+         return true;
+      }
+      n /= 4;
+   }
+   return false;
+};
+
+let maxArea = function (height) {
+   let max = 0;
+
+   for (let i = 0; i < height.length; i++) {
+      for (let j = i + 1; j < height.length; j++) {
+         let min = Math.min(height[i], height[j]);
+         let area = min * (j - i)
+         if (area > max) {
+            max = area;
+         }
+      }
+   }
+
+   return max;
+};
+
+
+// 42. Trapping Rain Water
